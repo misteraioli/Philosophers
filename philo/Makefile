@@ -3,7 +3,7 @@
 
 NAME	=	philo
 
-CC		=	cc
+CC	=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 HEADER	=	-Iinc
 LIB		=	-lpthread
@@ -11,7 +11,7 @@ LIB		=	-lpthread
 SRC_DIR	=	src/
 OBJ_DIR	=	obj/
 
-RM		=	rm -rf
+RM	=	rm -rf
 
 #######################################################
 ## SRCS & OBJS
@@ -43,7 +43,7 @@ $(OBJ_DIR):
 		@mkdir -p $(OBJ_DIR)
 
 norm :
-	norminette inc src
+		norminette inc src
 
 clean :
 		$(RM) $(OBJ_DIR)
