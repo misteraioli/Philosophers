@@ -42,7 +42,7 @@ static void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->mutex_is_eating);
 	message(philo, "is eating");
 	pthread_mutex_lock(&philo->mutex_last_meal_time);
-	precise_usleep(philo->data->time_to_eat);
+	precise_usleep(philo->data->time_to_eat, philo->data);
 	pthread_mutex_unlock(&philo->mutex_last_meal_time);
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
@@ -68,7 +68,7 @@ static void	*philosopher_routine(void *arg)
 		if (end_detection(philo->data))
 			break ;
 		message(philo, "is sleeping");
-		precise_usleep(philo->data->time_to_sleep);
+		precise_usleep(philo->data->time_to_sleep, philo->data);
 	}
 	return (NULL);
 }

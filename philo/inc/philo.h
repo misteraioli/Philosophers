@@ -67,6 +67,6 @@ bool	end_detection(t_data *data);
 void	check_end(t_config *config);
 
 long	get_current_time(void);
-void	precise_usleep(long time_in_ms);
+void	precise_usleep(long time_in_ms, t_data *data);
 
 #endif

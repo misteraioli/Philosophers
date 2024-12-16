@@ -20,11 +20,12 @@ long	get_current_time(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	precise_usleep(long time_in_ms)
+void	precise_usleep(long time_in_ms, t_data *data)
 {
 	long	start;
 
 	start = get_current_time();
-	while (get_current_time() - start < time_in_ms)
-		usleep(10);
+	while (get_current_time() - start < time_in_ms
+		&& !end_detection(data))
+		usleep(100);
 }

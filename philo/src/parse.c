@@ -44,11 +44,12 @@ static int	input(t_config *config, int argc, char **argv)
 	config->data->time_to_die = ft_atol(argv[2]);
 	config->data->time_to_eat = ft_atol(argv[3]);
 	config->data->time_to_sleep = ft_atol(argv[4]);
-	if (config->num_philos < 0
-		|| config->data->time_to_die < 0
-		|| config->data->time_to_eat < 0
-		|| config->data->time_to_sleep < 0)
+	if (config->num_philos < 0 || config->data->time_to_die < 0
+		|| config->data->time_to_eat < 0 || config->data->time_to_sleep < 0)
 		return (1);
+	if (config->num_philos == 0 || config->data->time_to_die == 0
+		|| config->data->time_to_eat == 0 || config->data->time_to_sleep == 0)
+		return (printf("error: invalid argument ou arg = 0\n"), 1);
 	if (argc == 6)
 	{
 		config->data->must_eat_count = (int)ft_atol(argv[5]);
