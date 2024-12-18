@@ -27,5 +27,5 @@ void	precise_usleep(long time_in_ms, t_data *data)
 	start = get_current_time();
 	while (get_current_time() - start < time_in_ms
 		&& !end_detection(data))
-		usleep(100);
+		usleep(10);
 }
