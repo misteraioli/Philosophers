@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:40:29 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/15 14:05:34 by niperez          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:44:20 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static long	ft_atol(const char *str)
 		str++;
 	if (*str == '-')
 		return (-2);
-	while ('0' <= *str && *str <= '9')
+	while (*str)
 	{
+		if ('0' > *str || *str > '9')
+			return (0);
 		nb = (10 * nb) + (*str - '0');
 		str++;
 		if (nb > INT_MAX)
@@ -48,11 +50,11 @@ static int	check_arg(t_config *config)
 		|| config->data->must_eat_count < -2)
 		return (printf("Error: arg > INT_MAX\n"), 1);
 	if (config->num_philos == 0
-		|| config->data->time_to_die < 30
-		|| config->data->time_to_eat < 30
-		|| config->data->time_to_sleep < 30
+		|| config->data->time_to_die < 60
+		|| config->data->time_to_eat < 60
+		|| config->data->time_to_sleep < 60
 		|| config->data->must_eat_count == 0)
-		return (printf("error: invalid arg\n"), 1);
+		return (printf("error: invalid arg ou arg = 0\n"), 1);
 	return (0);
 }
 
@@ -72,7 +74,7 @@ static int	input(t_config *config, int argc, char **argv)
 	else
 		config->data->must_eat_count = -1;
 	if (check_arg(config))
-		return (1);
+		return (free(config->data), 1);
 	config->data->end = false;
 	return (0);
 }
