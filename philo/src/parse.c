@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:40:29 by niperez           #+#    #+#             */
-/*   Updated: 2024/12/14 14:56:07 by niperez          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:05:34 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,38 @@ static long	ft_atol(const char *str)
 	while (*str == '+')
 		str++;
 	if (*str == '-')
-		return (printf("Error: arg < 0\n"), -1);
+		return (-2);
 	while ('0' <= *str && *str <= '9')
 	{
 		nb = (10 * nb) + (*str - '0');
 		str++;
 		if (nb > INT_MAX)
-			return (printf("Error: arg > INT_MAX\n"), -1);
+			return (-3);
 	}
 	return (nb);
+}
+
+static int	check_arg(t_config *config)
+{
+	if (config->num_philos == -2
+		|| config->data->time_to_die == -2
+		|| config->data->time_to_eat == -2
+		|| config->data->time_to_sleep == -2
+		|| config->data->must_eat_count == -2)
+		return (printf("Error: arg < 0\n"), 1);
+	if (config->num_philos < -2
+		|| config->data->time_to_die < -2
+		|| config->data->time_to_eat < -2
+		|| config->data->time_to_sleep < -2
+		|| config->data->must_eat_count < -2)
+		return (printf("Error: arg > INT_MAX\n"), 1);
+	if (config->num_philos == 0
+		|| config->data->time_to_die < 30
+		|| config->data->time_to_eat < 30
+		|| config->data->time_to_sleep < 30
+		|| config->data->must_eat_count == 0)
+		return (printf("error: invalid arg\n"), 1);
+	return (0);
 }
 
 static int	input(t_config *config, int argc, char **argv)
@@ -44,20 +67,12 @@ static int	input(t_config *config, int argc, char **argv)
 	config->data->time_to_die = ft_atol(argv[2]);
 	config->data->time_to_eat = ft_atol(argv[3]);
 	config->data->time_to_sleep = ft_atol(argv[4]);
-	if (config->num_philos < 0 || config->data->time_to_die < 0
-		|| config->data->time_to_eat < 0 || config->data->time_to_sleep < 0)
-		return (1);
-	if (config->num_philos == 0 || config->data->time_to_die == 0
-		|| config->data->time_to_eat == 0 || config->data->time_to_sleep == 0)
-		return (printf("error: invalid argument ou arg = 0\n"), 1);
 	if (argc == 6)
-	{
 		config->data->must_eat_count = (int)ft_atol(argv[5]);
-		if (config->data->must_eat_count < 0)
-			return (1);
-	}
 	else
 		config->data->must_eat_count = -1;
+	if (check_arg(config))
+		return (1);
 	config->data->end = false;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:43:09 by niperez           #+#    #+#             */
-/*   Updated: 2024/12/14 15:27:55 by niperez          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:50:16 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static void	*philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(100);
 	while (!end_detection(philo->data))
 	{
 		message(philo, "is thinking");
