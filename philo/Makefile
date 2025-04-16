@@ -1,17 +1,29 @@
 #######################################################
 ## ARGUMENTS
 
+# NAME
+
 NAME	=	philo
+
+# CC FLAG INC
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
-HEADER	=	-Iinc
-LIB		=	-lpthread
+INC		=	-Iinc
+LDFLAGS	=	-lpthread
+
+# SRC & OBJ DIR
 
 SRC_DIR	=	src/
 OBJ_DIR	=	obj/
 
-RM		=	rm -rf
+# RM
+
+RM	=	rm -rf
+
+# HEADERS
+
+HEADER	=	inc/philo.h
 
 #######################################################
 ## SRCS & OBJS
@@ -33,11 +45,11 @@ OBJS	=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) $(HEADER) -o $(NAME) $(LIB)
+$(NAME) : $(OBJS) Makefile
+		$(CC) $(CFLAGS) $(INC) $(OBJS) -o $(NAME) $(LDFLAGS)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
-		$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
+		$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJ_DIR):
 		@mkdir -p $(OBJ_DIR)
@@ -53,4 +65,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all clean fclean norm re
+.PHONY: all clean fclean re norm
