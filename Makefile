@@ -45,14 +45,14 @@ OBJS	=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) Makefile
+$(NAME) : $(OBJ_DIR) $(OBJS) Makefile
 		$(CC) $(CFLAGS) $(INC) $(OBJS) -o $(NAME) $(LDFLAGS)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
-		$(CC) $(CFLAGS) $(INC) -c $< -o $@
+$(OBJ_DIR) :
+		mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR):
-		@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER)
+		$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 norm :
 		norminette inc src

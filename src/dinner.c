@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:43:09 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/15 17:29:55 by niperez          ###   ########.fr       */
+/*   Updated: 2025/04/20 15:56:25 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ static void	*philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+	{
+		precise_usleep(philo->data->time_to_eat / 2, philo->data);
+	}
 	while (!end_detection(philo->data))
 	{
 		message(philo, "is thinking");
@@ -57,7 +61,7 @@ static void	*philosopher_routine(void *arg)
 	return (NULL);
 }
 
-static void	philosopher_solo(void *arg)
+static void	*philosopher_solo(void *arg)
 {
 	t_philo	*philo;
 
@@ -65,27 +69,7 @@ static void	philosopher_solo(void *arg)
 	message(philo, "is thinking");
 	pthread_mutex_lock(philo->first_fork);
 	message(philo, "has taken a fork");
-}
-
-static	void	priority(t_config *config)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (j < 2)
-	{
-		while (i < config->num_philos)
-		{
-			pthread_create(&config->philos[i].thread, NULL,
-				philosopher_routine, &config->philos[i]);
-			i += 2;
-		}
-		i = 1;
-		j++;
-		usleep(config->data->time_to_eat * 1000 / 2);
-	}
+	return (NULL);
 }
 
 void	dinner(t_config *config)
@@ -97,8 +81,18 @@ void	dinner(t_config *config)
 	while (++i < config->num_philos)
 		config->philos[i].last_meal_time = config->data->start_dinner;
 	if (config->num_philos == 1)
-		return (philosopher_solo(&config->philos[0]), check_end(config));
-	priority(config);
+	{
+		pthread_create(&config->philos[0].thread, NULL,
+			philosopher_solo, &config->philos[0]);
+		check_end(config);
+		return ;
+	}
+	i = -1;
+	while (++i < config->num_philos)
+	{
+		pthread_create(&config->philos[i].thread, NULL,
+			philosopher_routine, &config->philos[i]);
+	}
 	check_end(config);
 	i = -1;
 	while (++i < config->num_philos)
