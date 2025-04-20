@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:43:09 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/20 15:56:25 by niperez          ###   ########.fr       */
+/*   Updated: 2025/04/20 15:59:28 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ static void	*philosopher_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-	{
 		precise_usleep(philo->data->time_to_eat / 2, philo->data);
-	}
 	while (!end_detection(philo->data))
 	{
 		message(philo, "is thinking");
