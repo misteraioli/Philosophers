@@ -44,7 +44,7 @@ static void	*philosopher_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		precise_usleep(philo->data->time_to_eat / 2, philo->data);
+		precise_usleep(60, philo->data);
 	while (!end_detection(philo->data))
 	{
 		message(philo, "is thinking");
