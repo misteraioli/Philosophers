@@ -82,6 +82,7 @@ void	dinner(t_config *config)
 	{
 		pthread_create(&config->philos[0].thread, NULL,
 			philosopher_solo, &config->philos[0]);
+		pthread_join(config->philos[0].thread, NULL);
 		check_end(config);
 		return ;
 	}
@@ -90,9 +91,7 @@ void	dinner(t_config *config)
 	{
 		pthread_create(&config->philos[i].thread, NULL,
 			philosopher_routine, &config->philos[i]);
+		pthread_join(config->philos[i].thread, NULL);
 	}
 	check_end(config);
-	i = -1;
-	while (++i < config->num_philos)
-		pthread_join(config->philos[i].thread, NULL);
 }
