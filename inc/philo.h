@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 11:08:23 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/15 14:51:25 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:22:34 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	clean(t_config *config);
 void	message(t_philo *philo, char *msg);
 
 bool	end_detection(t_data *data);
-void	check_end(t_config *config);
+void	monitoring(t_config *config);
 
 long	get_current_time(void);
 void	precise_usleep(long time_in_ms, t_data *data);

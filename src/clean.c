@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:44:51 by niperez           #+#    #+#             */
-/*   Updated: 2024/12/14 14:57:03 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:17:51 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	mutex_destroy(t_config *config)
 	pthread_mutex_destroy(&config->data->end_mutex);
 }
 
-void	free_tabs(t_config *config)
+static void	free_tabs(t_config *config)
 {
 	if (config->data != NULL)
 		free(config->data);

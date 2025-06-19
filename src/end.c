@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:16:20 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/15 16:47:13 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:22:34 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	check_death(t_config *config)
 	}
 }
 
-void	check_end(t_config *config)
+void	monitoring(t_config *config)
 {
 	while (!end_detection(config->data))
 	{

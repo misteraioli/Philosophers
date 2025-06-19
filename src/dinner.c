@@ -6,13 +6,13 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:43:09 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/20 15:59:28 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:37:53 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	eating(t_philo *philo)
+static void	try_to_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->first_fork);
 	message(philo, "has taken a fork");
@@ -44,13 +44,13 @@ static void	*philosopher_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		precise_usleep(60, philo->data);
+		precise_usleep(40, philo->data);
 	while (!end_detection(philo->data))
 	{
 		message(philo, "is thinking");
 		if (end_detection(philo->data))
 			break ;
-		eating(philo);
+		try_to_eat(philo);
 		if (end_detection(philo->data))
 			break ;
 		message(philo, "is sleeping");
@@ -67,6 +67,7 @@ static void	*philosopher_solo(void *arg)
 	message(philo, "is thinking");
 	pthread_mutex_lock(philo->first_fork);
 	message(philo, "has taken a fork");
+	pthread_mutex_unlock(philo->first_fork);
 	return (NULL);
 }
 
@@ -82,8 +83,8 @@ void	dinner(t_config *config)
 	{
 		pthread_create(&config->philos[0].thread, NULL,
 			philosopher_solo, &config->philos[0]);
+		monitoring(config);
 		pthread_join(config->philos[0].thread, NULL);
-		check_end(config);
 		return ;
 	}
 	i = -1;
@@ -91,7 +92,9 @@ void	dinner(t_config *config)
 	{
 		pthread_create(&config->philos[i].thread, NULL,
 			philosopher_routine, &config->philos[i]);
-		pthread_join(config->philos[i].thread, NULL);
 	}
-	check_end(config);
+	monitoring(config);
+	i = -1;
+	while (++i < config->num_philos)
+		pthread_join(config->philos[i].thread, NULL);
 }
