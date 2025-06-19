@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:40:29 by niperez           #+#    #+#             */
-/*   Updated: 2025/04/20 15:46:49 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 14:00:08 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static long	ft_atol(const char *str)
 	return (nb);
 }
 
-static int	check_arg(t_config *config)
+static int	check_args(t_config *config)
 {
 	if (config->num_philos == -2
 		|| config->data->time_to_die == -2
@@ -73,7 +73,7 @@ static int	input(t_config *config, int argc, char **argv)
 		config->data->must_eat_count = (int)ft_atol(argv[5]);
 	else
 		config->data->must_eat_count = -1;
-	if (check_arg(config))
+	if (check_args(config))
 		return (free(config->data), 1);
 	config->data->end = false;
 	return (0);

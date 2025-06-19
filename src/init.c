@@ -6,13 +6,13 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:42:30 by niperez           #+#    #+#             */
-/*   Updated: 2024/12/14 15:08:42 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:57:22 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	forks_init(t_config *config)
+static void	init_forks(t_config *config)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ static void	distrib_forks(int i, t_config *config)
 	}
 }
 
-static void	philos_init(t_config *config)
+static void	init_philos(t_config *config)
 {
 	int	i;
 
@@ -59,6 +59,6 @@ void	init(t_config *config)
 {
 	pthread_mutex_init(&config->data->end_mutex, NULL);
 	pthread_mutex_init(&config->data->message, NULL);
-	forks_init(config);
-	philos_init(config);
+	init_forks(config);
+	init_philos(config);
 }

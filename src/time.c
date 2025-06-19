@@ -6,7 +6,7 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:34:08 by niperez           #+#    #+#             */
-/*   Updated: 2024/12/13 18:18:55 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:54:36 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	precise_usleep(long time_in_ms, t_data *data)
 
 	start = get_current_time();
 	while (get_current_time() - start < time_in_ms
-		&& !end_detection(data))
+		&& !end_detected(data))
 		usleep(10);
 }

@@ -6,29 +6,13 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:16:20 by niperez           #+#    #+#             */
-/*   Updated: 2025/06/19 13:22:34 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:55:50 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	message(t_philo *philo, char *msg)
-{
-	pthread_mutex_lock(&philo->data->message);
-	pthread_mutex_lock(&philo->data->end_mutex);
-	if (philo->data->end)
-	{
-		pthread_mutex_unlock(&philo->data->message);
-		pthread_mutex_unlock(&philo->data->end_mutex);
-		return ;
-	}
-	printf("%ld %d %s\n", (get_current_time() - philo->data->start_dinner),
-		philo->id, msg);
-	pthread_mutex_unlock(&philo->data->message);
-	pthread_mutex_unlock(&philo->data->end_mutex);
-}
-
-bool	end_detection(t_data *data)
+bool	end_detected(t_data *data)
 {
 	pthread_mutex_lock(&data->end_mutex);
 	if (data->end == true)
@@ -75,7 +59,7 @@ static void	check_death(t_config *config)
 			if (get_current_time() - config->philos[i].last_meal_time
 				> config->data->time_to_die)
 			{
-				message(&config->philos[i], "died");
+				print_message(&config->philos[i], "died");
 				pthread_mutex_lock(&config->data->end_mutex);
 				config->data->end = true;
 				pthread_mutex_unlock(&config->data->end_mutex);
@@ -91,7 +75,7 @@ static void	check_death(t_config *config)
 
 void	monitoring(t_config *config)
 {
-	while (!end_detection(config->data))
+	while (!end_detected(config->data))
 	{
 		if (everyone_ate(config))
 		{

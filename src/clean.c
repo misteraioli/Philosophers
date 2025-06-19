@@ -6,13 +6,13 @@
 /*   By: niperez <niperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:44:51 by niperez           #+#    #+#             */
-/*   Updated: 2025/06/19 13:17:51 by niperez          ###   ########.fr       */
+/*   Updated: 2025/06/19 13:58:48 by niperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	mutex_destroy(t_config *config)
+static void	destroy_mutexes(t_config *config)
 {
 	int	i;
 
@@ -40,6 +40,6 @@ static void	free_tabs(t_config *config)
 
 void	clean(t_config *config)
 {
-	mutex_destroy(config);
+	destroy_mutexes(config);
 	free_tabs(config);
 }
