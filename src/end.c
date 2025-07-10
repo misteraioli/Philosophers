@@ -84,5 +84,6 @@ void	monitoring(t_config *config)
 			pthread_mutex_unlock(&config->data->end_mutex);
 		}
 		check_death(config);
+		usleep(100);
 	}
 }
